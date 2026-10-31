@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .container{
+            width: 800px;
+            margin: 60px auto;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+            padding: 20px;
+        }
+        .container h1{
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        .Task-input{
+            width: 100%;
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .Task-input input{
+            width: 100%;
+            padding: 8px;
+        }
+        .Task-input button{
+            padding: 5px 20px;
+            border: none;
+            background-color: black;
+            color: white;
+            font-weight: bold;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: 500ms;
+        }
+        .Task-input button:hover{
+            transform: scale(1.2)
+        }
+        .container ul{
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }   
+         .container ul li{
+            display: flex;
+            justify-content: space-between;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            padding: 15px;
+            margin-top: 20px;
+         }
+         .container ul li i{
+            cursor: pointer;
+         }
+         .container ul li i:hover{
+            color: red;
+            transform: scale(1.5);
+            transition: 500ms;
+         }
+         .done{
+            text-decoration: line-through;
+            color: red;
+         }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To Do List 📋</h1>
+        <div class="Task-input">
+            <input type="text" id="input" placeholder="Enter Task">
+            <button>Add</button>
+        </div>
+
+        <ul>
+            
+        </ul>
+        
+    </div>
+
+    <script>
+        const input = document.querySelector(".Task-input input"); // create a selector for the input
+        const button = document.querySelector(".Task-input button"); // create a selector for the input
+        const list = document.querySelector(".container ul"); // create a selector for the input
+
+        // Added the event on button to add the value in input by Enter
+        input.addEventListener("keyup",(event)=>{
+           if (event.key === "Enter"){
+            todo(event.target.value)
+           }
+        })
+
+        // Added the event on button to add the value in input by click 
+        button.addEventListener("click",(event) =>{
+            todo()
+        })
+
+        // created a function
+        function todo(){
+            let value = input.value.trim();
+            if (value === ""){
+                return alert("Enter the Task")
+            }
+            const listItem = document.createElement("li"); // created a data type to create a element 
+            listItem.innerHTML = `${value} <i class="fa-solid fa-trash"></i>` // adding html inside the listitem
+
+            // const r = parseInt(Math.random() * 256)
+            // const g = parseInt(Math.random() * 256)
+            // const b = parseInt(Math.random() * 256)
+
+            // listItem.style.background=`rgb(${r},${g},${b})`
+
+            listItem.addEventListener("click",() =>{
+                listItem.classList.toggle("done")
+            })
+
+            // Created a selector to select the delete icon in the list 
+            listItem.querySelector("i").addEventListener("click",() =>{
+                listItem.remove();
+            })
+            list.append(listItem)
+            input.value = ""
+        }
+
+
+    </script>
+</body>
+</html>
